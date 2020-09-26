@@ -14,6 +14,12 @@ export class ArticleService {
   public loading: boolean = true;
   private apiUrl: string = 'https://localhost:44384/api/articles';
 
+
+  getArticlesWithoutPg():Observable<Article[]>{
+    return this.httpClient.get<Article[]>(this.apiUrl)
+  }
+
+
   public getAeticles(page: number, pageSize: number): Observable<ArticlePg> {
     let url = `${this.apiUrl}/${page}/${pageSize}`;
 
