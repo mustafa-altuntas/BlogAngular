@@ -1,0 +1,53 @@
+<app-page-title [pageTitle]="'İletişim'"></app-page-title>
+
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
+    <mat-form-field>
+      <input matInput placeholder="İsminiz" formControlName="name" />
+      <mat-error *ngIf="getControls.name.invalid">{{
+        getValidatorMessage(getControls.name, "İsim")
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Email adresiniz" formControlName="email" />
+      <mat-error *ngIf="getControls.email.invalid">{{
+        getValidatorMessage(getControls.email, "Email")
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Konu" formControlName="subject" />
+      <mat-error *ngIf="getControls.subject.invalid">{{getValidatorMessage(getControls.subject,"Konu")}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        rows="5"
+        matInput
+        placeholder="Mesajınız"
+        formControlName="message"
+      >
+      </textarea>
+      <mat-error *ngIf="getControls.message.invalid">{{getValidatorMessage(getControls.message,"Mesaj")}}</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="loading">
+      <span
+        *ngIf="loading"
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      Gönder
+    </button>
+  </div>
+</form>
+
+<div
+  *ngIf="info != null"
+  class="alert"
+  [ngClass]="{ 'alert-primary': succes, 'alert-danger': !succes }"
+>
+  {{ info }}
+</div>

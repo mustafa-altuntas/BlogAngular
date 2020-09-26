@@ -1,0 +1,15 @@
+.form-container
+{
+  display: flex; /*form taglarım alt alta gözüksün */
+  flex-direction: column; /*alt alda sütun şeklinde gözükmesi için */
+
+}
+.form-container>div
+{
+  width: 100% !important;
+}
+.form-container button
+{
+  width: fit-content; /*içindeki yazının genişliği kadar uzun olsun*/
+
+}

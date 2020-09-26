@@ -1,0 +1,20 @@
+<div class="card border-primary mt-2">
+  <div class="card-header">Arşiv</div>
+  <div class="card-body text-primary">
+    <div *ngIf="archives.length == 0" class="d-flex justify-content-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <h3 *ngFor="let item of archives">
+      <strong>
+        <a
+          class="btn btn-link"
+          [routerLink]="['/arsiv',item.year,item.month]"
+          ><i class="fa fa-angle-right"></i> {{ item.year }} {{item.mountName}} ({{item.count}}) </a
+        >
+      </strong>
+    </h3>
+  </div>
+</div>
