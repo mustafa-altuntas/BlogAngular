@@ -95,6 +95,15 @@ export class ArticleService {
     return this.httpClient.post<any>(url, image);
   }
 
+
+  addArticle(article:Article):Observable<any>{
+    return this.httpClient.post<any>(this.apiUrl,article);
+  }
+
+
+
+
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

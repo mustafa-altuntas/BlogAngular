@@ -1,25 +1,86 @@
-
-
-
 <div class="row">
-
   <div class="col-md-9">
+    <form
+      *ngIf="info == null"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="articleForm"
+    >
+      <div class="form-container">
+        <mat-form-field>
+          <input
+            type="text"
+            placeholder="Kategori seç"
+            formControlName="category"
+            matInput
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete
+            [displayWith]="displayCategpryName"
+            #auto="matAutocomplete"
+          >
+            <mat-option *ngFor="let item of categories" [value]="item">
+              {{ item.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
 
+        <mat-form-field>
+          <input
+            type="text"
+            formControlName="title"
+            matInput
+            placeholder="Makale İsmi"
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            type="text"
+            formControlName="contentSummary"
+            matInput
+            placeholder="Makale içerik özet"
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            type="text"
+            formControlName="contentMain"
+            matInput
+            placeholder="Makale içerik"
+          />
+        </mat-form-field>
+
+        <button [disabled]="loading" mat-raised-button color="primary">
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          Makale ekle
+        </button>
+      </div>
+    </form>
   </div>
 
   <div class="col-md-3">
-
     <div class="card text-white bg-primary">
       <div class="card-header">Makale resim</div>
       <div class="card-body">
-        <img [src]="picture || '../../../../assets/aericle_empty.jpg'"  class="img-thumbnail" >
-
+        <img
+          [src]="picture || '../../../../assets/aericle_empty.jpg'"
+          class="img-thumbnail"
+        />
       </div>
       <div class="card-footer">
-        <input (change)="upload($event)" type="file" name="image" class="form-control">
+        <input
+          (change)="upload($event)"
+          type="file"
+          name="image"
+          class="form-control"
+        />
       </div>
     </div>
-
   </div>
-
 </div>
