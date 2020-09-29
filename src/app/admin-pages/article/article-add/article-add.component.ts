@@ -10,6 +10,8 @@ import {
 import { error } from 'protractor';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category';
+import { MyvalidationService } from 'src/app/services/myvalidation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-add',
@@ -23,19 +25,29 @@ export class ArticleAddComponent implements OnInit {
   succes: boolean;
   loading: boolean;
   info: string;
-  categories:Category[];
+  categories: Category[];
 
-  constructor(private articleService: ArticleService, private categoryService:CategoryService) {}
+  constructor(
+    private articleService: ArticleService,
+    private categoryService: CategoryService,
+    public myValidationService:MyvalidationService,
+    private router:Router
+  ) {}
 
   ngOnInit(): void {
     this.getCategory();
     this.articleForm = new FormGroup({
       title: new FormControl('makale 1', Validators.required),
       contentSummary: new FormControl('makale özeti 1', Validators.required),
-      contentMain: new FormControl(''),
+      contentMain: new FormControl('',Validators.required),
       category: new FormControl('', Validators.required),
       picture: new FormControl(''),
     });
+  }
+
+  get getControls(){
+    return this.articleForm.controls
+    //getControls().email
   }
 
   onSubmit() {
@@ -44,27 +56,27 @@ export class ArticleAddComponent implements OnInit {
       this.articleService.addArticle(this.articleForm.value).subscribe(
         (result) => {
           this.succes = true;
-          console.log('Eklendi');
+          this.router.navigateByUrl("/admin/makale/liste")
         },
         (error) => {
           this.succes = false;
-          this.info = 'Bir hata meydana geldi : ' + error;
+          this.info = 'Bir hata meydana geldi';
+          console.log(error);
+
         }
       );
     }
   }
 
-
-  displayCategpryName(category){
-    return category.name
+  displayCategpryName(category) {
+    return category.name;
   }
 
-  getCategory(){
-    this.categoryService.getCategories().subscribe(data=>{
+  getCategory() {
+    this.categoryService.getCategories().subscribe((data) => {
       this.categories = data;
-    })
+    });
   }
-
 
   upload(files) {
     //eğer kullanıcı 1 den fazla dosya seçerse yanlızca ilk seçtiği dosyayı alıcağız
