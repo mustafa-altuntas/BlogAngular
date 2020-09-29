@@ -15,7 +15,12 @@
             [matAutocomplete]="auto"
           />
           <mat-error *ngIf="getControls.category.invalid">
-            {{myValidationService.getValidatorMessage(getControls.category,"Kategori")}}
+            {{
+              myValidationService.getValidatorMessage(
+                getControls.category,
+                "Kategori"
+              )
+            }}
           </mat-error>
           <mat-autocomplete
             [displayWith]="displayCategpryName"
@@ -35,7 +40,12 @@
             placeholder="Makale İsmi"
           />
           <mat-error *ngIf="getControls.title.invalid">
-            {{myValidationService.getValidatorMessage(getControls.title,"Makale ismi")}}
+            {{
+              myValidationService.getValidatorMessage(
+                getControls.title,
+                "Makale ismi"
+              )
+            }}
           </mat-error>
         </mat-form-field>
 
@@ -47,21 +57,22 @@
             placeholder="Makale içerik özet"
           />
           <mat-error *ngIf="getControls.contentSummary.invalid">
-            {{myValidationService.getValidatorMessage(getControls.contentSummary,"Makale  özet")}}
+            {{
+              myValidationService.getValidatorMessage(
+                getControls.contentSummary,
+                "Makale  özet"
+              )
+            }}
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-          <input
-            type="text"
+        <div style="border: 1px solid black" class="mb-2">
+          <ckeditor
             formControlName="contentMain"
-            matInput
-            placeholder="Makale içerik"
-          />
-          <mat-error *ngIf="getControls.contentMain.invalid">
-            {{myValidationService.getValidatorMessage(getControls.contentMain,"Makale içeri")}}
-          </mat-error>
-        </mat-form-field>
+            (ready)="onReady($event)"
+            [editor]="Editor"
+          ></ckeditor>
+        </div>
 
         <button [disabled]="loading" mat-raised-button color="primary">
           <span
@@ -75,8 +86,8 @@
       </div>
     </form>
 
-    <div role="alert" *ngIf="info!=null" class="alert alert-danger mt-3">
-      <p>{{info}}</p>
+    <div role="alert" *ngIf="info != null" class="alert alert-danger mt-3">
+      <p>{{ info }}</p>
     </div>
   </div>
 

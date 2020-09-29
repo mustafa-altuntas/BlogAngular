@@ -13,3 +13,7 @@
   width: fit-content; /*içindeki yazının genişliği kadar uzun olsun*/
 
 }
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 500px;
+}

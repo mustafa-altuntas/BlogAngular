@@ -12,6 +12,8 @@ import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category';
 import { MyvalidationService } from 'src/app/services/myvalidation.service';
 import { Router } from '@angular/router';
+import * as DeCoupledDocument from '@ckeditor/ckeditor5-build-decoupled-document';
+
 
 @Component({
   selector: 'app-article-add',
@@ -19,6 +21,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./article-add.component.css'],
 })
 export class ArticleAddComponent implements OnInit {
+  public Editor = DeCoupledDocument;
+  public onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+    );
+}
+
   fileData: File = null;
   picture: string = null;
   articleForm: FormGroup;
